@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import momentConfig from './configs/moment';
 
 moment.updateLocale('fr', momentConfig);
-axios.defaults.headers.common = { 'Authorization': 'Bearer e1b15dcb1ae24da1b49661156a5e7d0e' };
+axios.defaults.headers.common = { 'Authorization': `Bearer ${process.env.REACT_APP_NEWS_API_TOKEN}` };
 
 ReactDOM.render(
   <React.StrictMode>
