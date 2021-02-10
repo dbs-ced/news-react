@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import moment from 'moment';
+import axios from 'axios';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import momentConfig from './configs/moment';
 
 moment.updateLocale('fr', momentConfig);
+axios.defaults.headers.common = { 'Authorization': 'Bearer e1b15dcb1ae24da1b49661156a5e7d0e' };
 
 ReactDOM.render(
   <React.StrictMode>

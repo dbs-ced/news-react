@@ -28,7 +28,11 @@ class NewsList extends Component {
   }
 
   componentDidMount () {
-    axios.get('http://newsapi.org/v2/top-headlines?country=fr&apiKey=e1b15dcb1ae24da1b49661156a5e7d0e')
+    const config = {
+      headers: { 'Authorization': 'Bearer e1b15dcb1ae24da1b49661156a5e7d0e' }
+    };
+
+    axios.get('http://newsapi.org/v2/top-headlines?country=fr')
       .then(response => {
         this.setState({
           ...this,
