@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import axios from 'axios';
 
 import NewsCard from './NewsCard';
@@ -18,21 +18,27 @@ class NewsList extends Component {
       return <NewsCard news={article} key={index} />
     });
     
-    return <div>
+    return <Fragment>
       { newsList.length <= 0 ?
         <Spinner /> :
         <div className="card-columns">
           {newsList}
         </div>}
-    </div>;
+    </Fragment>;
   }
 
   componentDidMount () {
-    const config = {
-      headers: { 'Authorization': 'Bearer e1b15dcb1ae24da1b49661156a5e7d0e' }
-    };
+    let url;
+    switch (this.props.source) {
+      case 'everything' :
+        url = `http://newsapi.org/v2/everything`;
+        break;
+      default: case 'top-headlines' :
+      url = `http://newsapi.org/v2/top-headlines?country=fr`;
+        break;
+    }
 
-    axios.get('http://newsapi.org/v2/top-headlines?country=fr')
+    axios.get(url)
       .then(response => {
         this.setState({
           ...this,
