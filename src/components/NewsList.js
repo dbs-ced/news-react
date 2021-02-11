@@ -20,7 +20,11 @@ class NewsList extends Component {
     
     return <Fragment>
       { newsList.length <= 0 ?
-        <Spinner /> :
+        <Fragment>
+          <Spinner />
+          <Spinner />
+          <Spinner />
+        </Fragment> :
         <div className="card-columns">
           {newsList}
         </div>}
@@ -30,8 +34,11 @@ class NewsList extends Component {
   componentDidMount () {
     let url;
     switch (this.props.source) {
+      case 'search':
+        url = `http://newsapi.org/v2/everything?q=${this.props.query}`;
+        break;
       case 'everything' :
-        url = `http://newsapi.org/v2/everything`;
+        url = `http://newsapi.org/v2/everything?q=sport&pageSize=100`;
         break;
       default: case 'top-headlines' :
       url = `http://newsapi.org/v2/top-headlines?country=fr`;

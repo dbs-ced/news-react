@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import All from './pages/All';
 import Sources from './pages/Sources';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/sources">
             <Sources />
+          </Route>
+          <Route path="/search">
+            <Search />
           </Route>
           <Route path="/">
             <Home />

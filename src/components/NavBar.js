@@ -1,9 +1,16 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class NavBar extends Component {
   constructor (props) {
     super(props);
+
+    this.state = {
+      searchQuery: ''
+    };
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render () {
@@ -39,13 +46,25 @@ class NavBar extends Component {
             <a className="nav-link disabled" href="#">Disabled</a>
           </li> */}
         </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
+          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={this.state.searchQuery} onChange={this.handleOnChange}/>
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
         </form>
       </div>
     </nav>
   }
+
+  handleSubmit (event) {
+    event.preventDefault();
+    this.props.history.push(`/search?query=${this.state.searchQuery}`);
+  }
+
+  handleOnChange (event) {
+    this.setState({
+      ...this,
+      searchQuery: event.target.value
+    });
+  }
 }
 
-export default NavBar;
+export default withRouter(NavBar);
