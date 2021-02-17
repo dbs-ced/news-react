@@ -29,7 +29,7 @@ class NewsList extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchNews();
+    this.props.fetchNews(this.props.currentCountry);
 
     // let url;
     // switch (this.props.source) {
@@ -58,13 +58,14 @@ class NewsList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    newsList: state.newsList
+    newsList: state.newsList,
+    currentCountry: state.currentCountry
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchNews: () => { dispatch(fetchNews()) }
+    fetchNews: (currentCountry) => { dispatch(fetchNews(currentCountry)) }
   }
 }
 
