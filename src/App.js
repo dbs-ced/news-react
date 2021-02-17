@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 
-import Home from './pages/Home';
+import Top from './pages/Top';
 import All from './pages/All';
 import Sources from './pages/Sources';
 import Search from './pages/Search';
@@ -21,9 +21,6 @@ function App() {
       <NavBar />
 
       <Switch>
-        <Route path="/map">
-          <MapPage />
-        </Route>
         <Route path="/all">
           <All />
         </Route>
@@ -33,8 +30,11 @@ function App() {
         <Route path="/search">
           <Search />
         </Route>
+        <Route path="/top">
+          <Top />
+        </Route>
         <Route path="/">
-          <Home />
+          <MapPage />
         </Route>
       </Switch>
 
