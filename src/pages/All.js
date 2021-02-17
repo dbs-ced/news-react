@@ -6,8 +6,6 @@ export default function All () {
   return (
     <Fragment>
       <div className="container my-4">
-        <CountriesList />
-
         <NewsList source="everything" />
       </div>
     </Fragment>

@@ -6,8 +6,6 @@ export default function Top () {
   return (
     <Fragment>
       <div className="container my-4">
-        {/* <CountriesList /> */}
-
         <NewsList source="top-headlines" />
       </div>
     </Fragment>
