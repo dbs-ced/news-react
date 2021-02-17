@@ -27,7 +27,7 @@ export default class Map extends Component {
 
       <LayerGroup>
         {/* <GeoJSON data={WorldData} onEachFeature={this.onEachFeature} style={{ fillOpacity: 0 }}></GeoJSON> */}
-        <GeoJSON data={this.state.geoJson} onEachFeature={this.onEachFeature} style={{ stroke: false, fillColor: 'red' }}></GeoJSON>
+        <GeoJSON data={this.state.geoJson} onEachFeature={this.onEachFeature} style={{ stroke: true, weight: 2, color: 'black', fillColor: '#b71540' }}></GeoJSON>
       </LayerGroup>
     </MapContainer>);
   }
@@ -53,8 +53,6 @@ export default class Map extends Component {
         }
       });
     });
-
-    console.log(newsapiConfig.length, featuresList.length)
 
     this.setState({
       ...this,
