@@ -1,7 +1,8 @@
 const initialState = {
   currentCountry: null,
   newsList: [],
-  sources: []
+  sources: [],
+  searchQuery: ''
 };
 
 export default initialState;

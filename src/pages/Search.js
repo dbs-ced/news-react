@@ -1,22 +1,28 @@
-import { Fragment } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import NewsList from '../components/NewsList';
 
-export default function Search () {
-  let query = useQuery();
+class Search extends Component {
+  constructor (props) {
+    super(props);
+  }
 
-  return (
-    <Fragment>
+  render () {
+    return <Fragment>
       <div className="container my-4">
-        Resultat de recherche { query.get('query') }
+        Resultat de recherche { this.props.searchQuery }
 
-        <NewsList source="search" query={ query.get('query') } />
+        <NewsList source="search" query={ this.props.searchQuery } />
       </div>
     </Fragment>
-  );
+  }
 }
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
+const mapStateToProps = (state) => {
+  return {
+    searchQuery: state.searchQuery
+  };
 }
+
+export default connect(mapStateToProps)(Search);

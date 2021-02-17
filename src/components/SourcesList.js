@@ -1,7 +1,6 @@
 import { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import Spinner from './Spinner';
 import SourceCard from './SourceCard';
 
 import fetchSources from '../requests/fetchSources';
@@ -18,7 +17,7 @@ class SourcesList extends Component {
     
     return <Fragment>
     { sourcesList.length <= 0 ?
-      <Spinner /> :
+      <p>Aucune sources à afficher pour ce pays.</p> :
       <div className="card-columns">
         { sourcesList }
       </div>

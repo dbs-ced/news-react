@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { fetchNews } from '../redux/actions';
 
-export default (country, source) => {
+export default (country, source, searchQuery = null) => {
   return dispatch => {
     let url = 'http://newsapi.org/v2/';
     switch (source) {
@@ -10,14 +10,16 @@ export default (country, source) => {
         url += 'everything';
         break;
       case 'search': 
-      url += `everything?q=${this.props.query}`;
+        url += `everything?q=${searchQuery}`;
         break;
       default: case 'top-headlines': 
       url += 'top-headlines';
         break;
     }
 
-    url += `?country=${country}`;
+    if (source !== 'search') {
+      url += (url.indexOf('?') >= 0 ? '&' : '?') + `country=${country}`;
+    }
 
     axios.get(url)
       .then(response => {

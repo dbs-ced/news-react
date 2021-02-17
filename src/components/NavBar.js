@@ -2,15 +2,12 @@ import { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { changeSearchQuery } from '../redux/actions';
+
 class NavBar extends Component {
   constructor (props) {
     super(props);
 
-    this.state = {
-      searchQuery: ''
-    };
-
-    this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -43,32 +40,35 @@ class NavBar extends Component {
             </Fragment>
           }
         </ul>
-        <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
-          <input className="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche" value={this.state.searchQuery} onChange={this.handleOnChange}/>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-        </form>
+        {!this.props.currentCountry ? '' :
+          <Fragment>
+            <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
+              <input className="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche" value={this.props.searchQuery} onChange={this.props.changeSearchQuery}/>
+              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
+          </Fragment>
+        }
       </div>
     </nav>
   }
 
   handleSubmit (event) {
     event.preventDefault();
-    this.props.history.push(`/search?query=${this.state.searchQuery}`);
-  }
-
-  handleOnChange (event) {
-    this.setState({
-      ...this,
-      searchQuery: event.target.value
-    });
+    this.props.history.push('/search');
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    currentCountry: state.currentCountry
+    currentCountry: state.currentCountry,
+    searchQuery: state.searchQuery
   }
 }
 
-// export default connect(mapStateToProps, null)(withRouter(NavBar));
-export default withRouter(connect(mapStateToProps, null)(NavBar));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeSearchQuery: (event) => { dispatch(changeSearchQuery(event.target.value)) }
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
