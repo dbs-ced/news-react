@@ -1,5 +1,6 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class NavBar extends Component {
   constructor (props) {
@@ -25,32 +26,25 @@ class NavBar extends Component {
           <li className="nav-item">
             <Link to="/map" className="nav-link">Carte</Link>
           </li>
-          {/* <li className="nav-item">
-            <Link to="/" className="nav-link">Home</Link>
+          <li>
+            <span className="badge badge-info">{this.props.currentCountry}</span>
           </li>
-          <li className="nav-item">
-            <Link to="/all" className="nav-link">All news</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/sources" className="nav-link">Sources</Link>
-          </li> */}
-          {/* <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Action</a>
-              <a className="dropdown-item" href="#">Another action</a>
-              <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" href="#">Disabled</a>
-          </li> */}
+          {!this.props.currentCountry ? '' :
+            <Fragment>
+              <li className="nav-item">
+                <Link to="/top" className="nav-link">Top</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/all" className="nav-link">All news</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/sources" className="nav-link">Sources</Link>
+              </li>
+            </Fragment>
+          }
         </ul>
         <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={this.state.searchQuery} onChange={this.handleOnChange}/>
+          <input className="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche" value={this.state.searchQuery} onChange={this.handleOnChange}/>
           <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
         </form>
       </div>
@@ -70,4 +64,11 @@ class NavBar extends Component {
   }
 }
 
-export default withRouter(NavBar);
+const mapStateToProps = (state) => {
+  return {
+    currentCountry: state.currentCountry
+  }
+}
+
+// export default connect(mapStateToProps, null)(withRouter(NavBar));
+export default withRouter(connect(mapStateToProps, null)(NavBar));
