@@ -5,9 +5,11 @@ import NewsList from '../components/NewsList';
 export default function All () {
   return (
     <Fragment>
-      <CountriesList />
+      <div className="container my-4">
+        <CountriesList />
 
-      <NewsList source="everything" />
+        <NewsList source="everything" />
+      </div>
     </Fragment>
   );
 }

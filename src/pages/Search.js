@@ -8,9 +8,11 @@ export default function Search () {
 
   return (
     <Fragment>
-      Resultat de recherche { query.get('query') }
+      <div className="container my-4">
+        Resultat de recherche { query.get('query') }
 
-      <NewsList source="search" query={ query.get('query') } />
+        <NewsList source="search" query={ query.get('query') } />
+      </div>
     </Fragment>
   );
 }

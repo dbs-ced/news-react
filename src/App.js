@@ -20,25 +20,23 @@ function App() {
         />
       <NavBar />
 
-      <div className="container my-4">
-        <Switch>
-          <Route path="/map">
-            <MapPage />
-          </Route>
-          <Route path="/all">
-            <All />
-          </Route>
-          <Route path="/sources">
-            <Sources />
-          </Route>
-          <Route path="/search">
-            <Search />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/map">
+          <MapPage />
+        </Route>
+        <Route path="/all">
+          <All />
+        </Route>
+        <Route path="/sources">
+          <Sources />
+        </Route>
+        <Route path="/search">
+          <Search />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
 
       <Footer />
     </Router>
