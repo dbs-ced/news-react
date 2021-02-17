@@ -1,20 +1,18 @@
 import { Component, Fragment } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import Spinner from './Spinner';
 import SourceCard from './SourceCard';
 
+import fetchSources from '../requests/fetchSources';
+
 class SourcesList extends Component {
   constructor (props) {
     super(props);
-
-    this.state = {
-      sources: []
-    };
   }
 
   render () {
-    const sourcesList = this.state.sources.map((source, index) => {
+    const sourcesList = this.props.sources.map((source, index) => {
       return <SourceCard key={index} source={source} />
     });
     
@@ -29,16 +27,21 @@ class SourcesList extends Component {
   }
 
   componentDidMount () {
-    axios.get('http://newsapi.org/v2/sources')
-      .then(response => {
-        this.setState({
-          ...this,
-          sources: response.data.sources
-        });
-      }).catch(error => {
-        console.error(error)
-      });
+    this.props.fetchSources(this.props.currentCountry);
   }
 }
 
-export default SourcesList;
+const mapStateToProps = (state) => {
+  return {
+    currentCountry: state.currentCountry,
+    sources: state.sources
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSources: (currentCountry) => { dispatch(fetchSources(currentCountry)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SourcesList);

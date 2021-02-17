@@ -1,5 +1,4 @@
 import { Component, Fragment } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 
 import NewsCard from './NewsCard';
@@ -29,30 +28,7 @@ class NewsList extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchNews(this.props.currentCountry);
-
-    // let url;
-    // switch (this.props.source) {
-    //   case 'search':
-    //     url = `http://newsapi.org/v2/everything?q=${this.props.query}`;
-    //     break;
-    //   case 'everything' :
-    //     url = `http://newsapi.org/v2/everything?q=sport&pageSize=100`;
-    //     break;
-    //   default: case 'top-headlines' :
-    //   url = `http://newsapi.org/v2/top-headlines?country=fr`;
-    //     break;
-    // }
-
-    // axios.get(url)
-    //   .then(response => {
-    //     this.setState({
-    //       ...this,
-    //       articles: response.data.articles
-    //     });
-    //   }).catch(error => {
-    //     console.error(error)
-    //   });
+    this.props.fetchNews(this.props.currentCountry, this.props.source);
   }
 }
 
@@ -65,7 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchNews: (currentCountry) => { dispatch(fetchNews(currentCountry)) }
+    fetchNews: (currentCountry, source) => { dispatch(fetchNews(currentCountry, source)) }
   }
 }
 
