@@ -1,5 +1,6 @@
 const initialState = {
-  newsList: []
+  newsList: [],
+  currentCountry: null
 };
 
 export default initialState;

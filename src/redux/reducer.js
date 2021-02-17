@@ -1,5 +1,5 @@
 import initialState from './initialState';
-import { CLICK, FETCH_NEWS } from './actions';
+import { SELECT_COUNTRY, FETCH_NEWS } from './actions';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -7,6 +7,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         newsList: action.newsList
+      }
+    case SELECT_COUNTRY:
+      return {
+        ...state,
+        currentCountry: action.currentCountry
       }
     default:
       return state;
