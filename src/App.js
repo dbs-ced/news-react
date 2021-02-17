@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -8,40 +10,56 @@ import All from './pages/All';
 import Sources from './pages/Sources';
 import Search from './pages/Search';
 import MapPage from './pages/MapPage';
+import Error from './pages/Error';
 
-function App() {
-  return (
-    <Router>
-      <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-          crossOrigin=""
-        />
-        
-      <NavBar />
+class App extends Component {
+  constructor (props) {
+    super (props);
+  }
 
-      <Switch>
-        <Route path="/all">
-          <All />
-        </Route>
-        <Route path="/sources">
-          <Sources />
-        </Route>
-        <Route path="/search">
-          <Search />
-        </Route>
-        <Route path="/top">
-          <Top />
-        </Route>
-        <Route path="/">
-          <MapPage />
-        </Route>
-      </Switch>
+  render () {
+    return (
+      <Router>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossOrigin=""
+          />
+          
+        <NavBar />
 
-      <Footer />
-    </Router>
-  );
+        <Switch>
+          <Route path="/all">
+            {!this.props.currentCountry ? <Redirect to="/" /> : <All />}
+          </Route>
+          <Route path="/sources">
+            {!this.props.currentCountry ? <Redirect to="/" /> : <Sources />}
+          </Route>
+          <Route path="/search">
+            <Search />
+          </Route>
+          <Route path="/top">
+            {!this.props.currentCountry ? <Redirect to="/" /> : <Top />}
+          </Route>
+          <Route exact path="/">
+            <MapPage />
+          </Route>
+          <Route path="*">
+            <Error />
+          </Route>
+        </Switch>
+
+        <Footer />
+      </Router>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    currentCountry: state.currentCountry
+  }
+}
+
+export default connect(mapStateToProps)(App);

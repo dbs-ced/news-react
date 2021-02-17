@@ -21,7 +21,7 @@ class NavBar extends Component {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to="/map" className="nav-link">Carte</Link>
+            <Link to="/" className="nav-link">Carte</Link>
           </li>
           <li>
             <span className="badge badge-info">{this.props.currentCountry}</span>
@@ -40,14 +40,12 @@ class NavBar extends Component {
             </Fragment>
           }
         </ul>
-        {!this.props.currentCountry ? '' :
-          <Fragment>
-            <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
-              <input className="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche" value={this.props.searchQuery} onChange={this.props.changeSearchQuery}/>
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-            </form>
-          </Fragment>
-        }
+        
+        <form className="form-inline my-2 my-lg-0" onSubmit={this.handleSubmit}>
+          <input className="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche" value={this.props.searchQuery} onChange={this.props.changeSearchQuery}/>
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+        </form>
+        
       </div>
     </nav>
   }
