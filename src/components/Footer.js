@@ -1,9 +1,72 @@
+import { useState, useEffect } from 'react';
+
 export default function Footer () {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `Vous avez cliqué ${count}`;
+  });
+  
   return (
-    <div className="bg-light">
-      <div className="container py-4">
-        Youpi
+    <footer className="bg-light">
+      
+      <div className="container p-0 pt-3">
+        <div className="row">
+          <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
+            <h5 className="text-uppercase">Footer Content</h5>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+              molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
+              voluptatem veniam, est atque cumque eum delectus sint!
+            </p>
+          </div>
+
+          <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 className="text-uppercase">Links</h5>
+
+            <ul className="list-unstyled mb-0">
+              <li>
+                <a href="#!">Link 1</a>
+              </li>
+              <li>
+                <a href="#!">Link 2</a>
+              </li>
+              <li>
+                <a href="#!">Link 3</a>
+              </li>
+              <li>
+                <a href="#!">Link 4</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 className="text-uppercase mb-0">Links</h5>
+
+            <ul className="list-unstyled">
+              <li>
+                <a href="#!">Link 1</a>
+              </li>
+              <li>
+                <a href="#!">Link 2</a>
+              </li>
+              <li>
+                <a href="#!">Link 3</a>
+              </li>
+              <li>
+                <a href="#!">Link 4</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div className="text-center p-3">
+        <span>© 2020 Copyright - </span>
+        <a className="text-dark" href="https://www.dubus-cedric.fr/">dubus-cedric.fr</a>
+      </div>
+      
+    </footer>
   )
 }

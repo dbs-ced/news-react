@@ -4,9 +4,16 @@ import { fetchSources } from '../redux/actions';
 
 export default (country) => {
   return dispatch => {
-    let url = `http://newsapi.org/v2/sources?country=${country}`;
+    let url = `https://newsapi.org/v2/sources?country=${country}`;
 
-    axios.get(url)
+    const config = {
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Content-Type': 'application/json',
+      // }
+    };
+
+    axios.get(url, config)
       .then(response => {
         dispatch(fetchSources(response.data.sources));
       }).catch(error => {

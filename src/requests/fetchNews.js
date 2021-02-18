@@ -4,7 +4,7 @@ import { fetchNews } from '../redux/actions';
 
 export default (country, source, searchQuery = null) => {
   return dispatch => {
-    let url = 'http://newsapi.org/v2/';
+    let url = 'https://newsapi.org/v2/';
     switch (source) {
       case 'everything':
         url += 'everything';
@@ -21,7 +21,13 @@ export default (country, source, searchQuery = null) => {
       url += (url.indexOf('?') >= 0 ? '&' : '?') + `country=${country}`;
     }
 
-    axios.get(url)
+    const config = {
+      // proxy: {
+      //   host: 'https://cors-anywhere.herokuapp.com/'
+      // }
+    };
+
+    axios.get(url, config)
       .then(response => {
         dispatch(fetchNews(response.data.articles));
       }).catch(error => {
