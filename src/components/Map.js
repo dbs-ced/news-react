@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import { MapContainer, TileLayer, LayerGroup, GeoJSON } from 'react-leaflet';
 import { connect } from 'react-redux';
 import { SELECT_COUNTRY } from '../redux/actions';
@@ -12,8 +12,11 @@ class Map extends Component {
     super(props);
 
     this.state = {
-      geoJson: []
+      geoJson: [],
+      currentLayer: null
     };
+
+    this.geoJsonLayer = createRef();
   }
 
   render () {
@@ -28,7 +31,7 @@ class Map extends Component {
 
         <LayerGroup>
           {/* <GeoJSON data={WorldData} onEachFeature={this.onEachFeature} style={{ fillOpacity: 0 }}></GeoJSON> */}
-          <GeoJSON data={this.state.geoJson} onEachFeature={this.onEachFeature.bind(null, this)} style={{ stroke: true, weight: 2, color: 'black', fillColor: '#b71540' }}></GeoJSON>
+          <GeoJSON ref={this.geoJsonLayer} data={this.state.geoJson} onEachFeature={this.onEachFeature.bind(null, this)} style={{ stroke: true, weight: 2, color: 'black', fillColor: '#b71540' }}></GeoJSON>
         </LayerGroup>
       </MapContainer>);
   }
@@ -37,9 +40,18 @@ class Map extends Component {
     this.createFeatures();
   }
 
+  componentDidUpdate () {
+    for (let index in this.geoJsonLayer.current._layers) {
+      if (this.geoJsonLayer.current._layers[index].feature.properties.iso_code === this.props.currentCountry) {
+        this.geoJsonLayer.current._layers[index].setStyle({ fillColor: 'yellow'});
+      } else {
+        this.geoJsonLayer.current._layers[index].setStyle({ fillColor: '#b71540'});
+      }
+    }
+  }
+
   onEachFeature (component, feature, layer) {
     layer.on('click', (event) => {
-      // console.log(layer.feature.properties.name, layer.feature.properties.iso_code)
       component.props.selectCountry(layer.feature.properties.iso_code);
     });
   }
@@ -66,10 +78,16 @@ class Map extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    currentCountry: state.currentCountry
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     selectCountry: (currentCountry) => { dispatch({ type: SELECT_COUNTRY, currentCountry }) }
   }
 }
 
-export default connect(null, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
